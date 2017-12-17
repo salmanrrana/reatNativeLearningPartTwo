@@ -1,6 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import { Card, Button, Icon } from 'react-native-elements';
 import Deck from './src/Deck';
 
 
@@ -26,9 +30,9 @@ export default class App extends React.Component {
           I can customize the card further.
         </Text>
         <Button
-          icon={{ name: 'code' }}
-          backgroundColor="#03A9F4"
-          title="View Now"
+          icon={{name: 'add-circle-outline', type: 'material-icons'}}
+          backgroundColor="#2D3047"
+          title="Save Show"
         />
       </Card>
     )
