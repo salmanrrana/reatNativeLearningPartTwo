@@ -25,8 +25,9 @@ export default class App extends React.Component {
       <Card
         title={item.text}
         image={{ uri: item.uri }}
+        key={item.id}
       >
-        <Text style={{ marginBotton: 10 }}>
+        <Text style={{ margin: 10 }}>
           I can customize the card further.
         </Text>
         <Button
@@ -45,6 +46,7 @@ export default class App extends React.Component {
         <Deck
           data={DATA}
           renderCard={this.renderCard}
+          // key={DATA.id}
         />
       </View>
     );

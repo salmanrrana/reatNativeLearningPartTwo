@@ -8,7 +8,7 @@ const SWIPE_THRESHOLD = 0.5 * SCREEN_WIDTH;
 const SWIPE_OUT_DURATION = 250;
 
 
-class Deck extends Component {
+class DeckNoStack extends Component {
   static defaultProps = {
     onSwipeRight: () => {},
     onSwipeLeft: () => {}
@@ -133,4 +133,4 @@ class Deck extends Component {
   }
 }
 
-export default Deck;
+export default DeckNoStack;
