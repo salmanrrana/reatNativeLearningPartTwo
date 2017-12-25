@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Animated,
-  PanResponder, Dimensions
+  PanResponder, Dimensions, LayoutAnimation,
+  UIManager
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -48,6 +49,20 @@ class Deck extends Component {
     this.state = { panResponder, position, index: 0 };
   }
 
+  //this only comapres to see if it is the same exact array of object that are rendered
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.setState({ index: 0 })
+    }
+  }
+
+  //UIManager is being used here for compatibility issues for android purposes
+  //if this function exists then call it with a value of true
+  //layoutAnimation.spring() is for the state to have that spring
+  componentWillUpdate(){
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
+  }
 // this function will reset (w/ a spring) the position of the card to normal
   resetPosition() {
     Animated.spring(this.state.position, {
@@ -104,6 +119,10 @@ class Deck extends Component {
   // i is the index of the item within the array of cards provided(this.props.data)
   // this.state.index is the current card that we are attempting to consider
   renderCards() {
+    if (this.state.index >= this.props.data.length) {
+      return this.props.renderNoMoreCards()
+    }
+
     return this.props.data.map((item, i)=> {
       // if these cards have already been swiped just return null
       if (i < this.state.index) { return null; }
@@ -112,7 +131,7 @@ class Deck extends Component {
         return (
           <Animated.View
             key={item.id}
-            style={this.getCardStyle()}
+            style={[this.getCardStyle(), styles.cardStyle]}
             {...this.state.panResponder.panHandlers}
           >
             {this.props.renderCard(item)}
@@ -120,8 +139,19 @@ class Deck extends Component {
         )
       }
       //if you remove this line below: the cards appear one at a time
-      return this.props.renderCard(item)
-    })
+      return (
+        //this animated.view  below is controlling all the cards behind the card that is showing.
+        //the top style is moving the card down by 10 times the difference between
+        // i(the individual item position) subtracted by this.state.index(the number of cards away that it is from being on top of the deck)
+        // in order for the cards to move up along when the cards get swiped left and right
+        <Animated.View
+          key={item.id}
+          style={[styles.cardStyle, { top: 10 * (i - this.state.index) }]}
+        >
+          {this.props.renderCard(item)}
+        </Animated.View>
+      );
+    }).reverse();
   }
 
   render () {
@@ -130,6 +160,13 @@ class Deck extends Component {
         {this.renderCards()}
       </View>
     )
+  }
+}
+
+const styles = {
+  cardStyle: {
+    position: 'absolute',
+    width: SCREEN_WIDTH
   }
 }
 

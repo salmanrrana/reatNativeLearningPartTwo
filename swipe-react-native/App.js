@@ -26,6 +26,7 @@ export default class App extends React.Component {
         title={item.text}
         image={{ uri: item.uri }}
         key={item.id}
+        style={styles.card}
       >
         <Text style={{ margin: 10 }}>
           I can customize the card further.
@@ -39,6 +40,20 @@ export default class App extends React.Component {
     )
   }
 
+  renderNoMoreCards() {
+    return (
+      <Card title="No More Fucking Cards">
+        <Text style={{ margin: 10 }}>
+          No mo fucking content
+        </Text>
+        <Button
+          backgroundColor="#2D3047"
+          title="Look For More Shows!"
+        />
+      </Card>
+    )
+  }
+
 
   render() {
     return (
@@ -46,7 +61,7 @@ export default class App extends React.Component {
         <Deck
           data={DATA}
           renderCard={this.renderCard}
-          // key={DATA.id}
+          renderNoMoreCards={this.renderNoMoreCards}
         />
       </View>
     );
@@ -56,6 +71,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  },
+    backgroundColor: '#fff',
+    margin: 5
+  }
 });
