@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 class WelcomeScreen extends Component {
-  render(){
+  render() {
     return (
       <View>
         <Text>WelcomeScreen</Text>
@@ -14,9 +14,8 @@ class WelcomeScreen extends Component {
         <Text>WelcomeScreen</Text>
         <Text>WelcomeScreen</Text>
         <Text>WelcomeScreen</Text>
-        <Text>WelcomeScreen</Text>
       </View>
-    )
+    );
   }
 }
 

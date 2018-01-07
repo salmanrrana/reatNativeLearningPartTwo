@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 class AuthScreen extends Component {
-  render(){
+  render() {
     return (
       <View>
         <Text>AuthScreen</Text>
@@ -14,9 +14,8 @@ class AuthScreen extends Component {
         <Text>AuthScreen</Text>
         <Text>AuthScreen</Text>
         <Text>AuthScreen</Text>
-        <Text>AuthScreen</Text>
       </View>
-    )
+    );
   }
 }
 
