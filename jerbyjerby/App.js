@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 
@@ -26,20 +26,26 @@ export default class App extends React.Component {
               review: {
                 screen: ReviewScreen,
                 navigationOptions:({ navigation }) => ({
-                  headerRight: <Button
-                    title="Settings"
-                    onPress={() => navigation.navigate('settings')}
-                  />,
+                  headerRight: (
+                    <Button
+                      title="Settings"
+                      onPress={() => navigation.navigate('settings')}
+                      backgroundColor="rgba(0,0,0,0)"
+                      color="rgba(0,122,255,1)"
+                    />
+                  ),
+                  style:{
+                    marginTop: Platform.OS === 'android' ? 24 : 0,
+                  },
                   headerTitle: <Text>Review</Text>
                 }),
-
                },
-              settings: { screen: SettingsScreen },
-            })
-          }
-        })
-      }
-    });
+                settings: { screen: SettingsScreen },
+              })
+            }
+          })
+        }
+      });
 
     return <MainNavigator />;
   }
